@@ -1,5 +1,14 @@
-// const express = require("express")
+const express = require("express")
 
-// const countryRoute = express.Router()
+const { getAllCountries, getCountryById, bulkCreateCountries } = require("../controllers/country.controller")
 
-// countryRoute.get(req, res)
+
+const countryRouter = express.Router()
+
+countryRouter.get("/", getAllCountries)
+countryRouter.get("/:idPais", getCountryById)
+countryRouter.post("/data", bulkCreateCountries)
+
+module.exports = {
+  countryRouter
+}

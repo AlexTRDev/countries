@@ -1,16 +1,43 @@
 const { catchAsync } = require("../utils/catchAsync.util")
-const data = require("../data/dataCountries.json")
+const dataAPI = require("../data/dataCountries.json")
 const { Country } = require("../models")
+const { getAll, getById, getByName } = require("../services/country.service")
 
-const getAllCountries = catchAsync((req, res) => {
+// controller solamente se encarga de recibir y responder las peticiones
+const getAllCountries = catchAsync(async (req, res) => {
+  const { name } = req.query
+  let data
 
+  if (name) {
+    data = await getByName(name)
+  } else {
+    data = await getAll()
+  }
+
+  res.status(200)
+    .json({
+      data,
+      status: "success",
+    })
 })
 
-const getCountryById = (req, res) => { }
+const getCountryById = catchAsync(async (req, res, next) => {
+  const { idPais } = req.params
 
+  let data = await getById(idPais)
+
+  if (data === null) res.status(404).json({ status: 'Not Found' })
+
+  res.status(200).json({
+    data,
+    status: "success",
+  })
+})
+
+// controller para llenar los datos de los paises por defecto
 const bulkCreateCountries = catchAsync(async (req, res) => {
 
-  let countries = data.map(country => {
+  let countries = dataAPI.map(country => {
     return {
       name: country?.name?.common || "None",
       image: country?.flags[0] || "None",

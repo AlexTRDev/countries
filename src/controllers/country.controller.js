@@ -2,23 +2,21 @@ const { catchAsync } = require("../utils/catchAsync.util")
 const dataAPI = require("../data/dataCountries.json")
 const { Country } = require("../models")
 const { getAll, getById, getByName } = require("../services/country.service")
-
 // controller solamente se encarga de recibir y responder las peticiones
 const getAllCountries = catchAsync(async (req, res) => {
   const { name } = req.query
   let data
-
   if (name) {
     data = await getByName(name)
   } else {
     data = await getAll()
   }
 
-  res.status(200)
-    .json({
-      data,
-      status: "success",
-    })
+  res.status(200).json({
+    data,
+    status: "success",
+  })
+
 })
 
 const getCountryById = catchAsync(async (req, res, next) => {

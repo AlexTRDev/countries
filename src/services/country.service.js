@@ -1,5 +1,5 @@
 const { Op } = require("../utils/database.util")
-const { Country } = require("../models")
+const { Country, Activity } = require("../models")
 
 //logica
 const getAll = async () => {
@@ -7,11 +7,12 @@ const getAll = async () => {
 }
 
 const getById = async (id) => {
-  return await Country.findByPk(id)
+  return await Country.findByPk(id, {
+    include: Activity
+  })
 }
 
 const getByName = async (name) => {
-
   return await Country.findAll({
     where: {
       name: {

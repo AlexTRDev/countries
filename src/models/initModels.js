@@ -1,5 +1,5 @@
 const { Activity, Country, User } = require("./index")
-
+// 1 - 2 - 3
 const initModels = () => {
 
    // Country n <=> m  Activity

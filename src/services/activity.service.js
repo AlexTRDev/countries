@@ -7,10 +7,9 @@ const createActivity = async ({ countriesIds, ...activity }) => {
   await activityInstance.addCountries(countriesIds)
 
   // Traemos toda la informacion incluida su tabla relacionada
-  const data = Activity.findByPk(activityInstance.id, {
+  return await Activity.findByPk(activityInstance.id, {
     include: Country
   })
-  return data
 }
 
 module.exports = { createActivity }

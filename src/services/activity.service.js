@@ -1,10 +1,16 @@
-const { Activity } = require("../models")
+const { Activity, Country } = require("../models")
 
-const createActivity = async (activity) => {
+const createActivity = async ({ countriesIds, ...activity }) => {
   const activityInstance = await Activity.create(activity)
+
+  // agregando datos a la trabla intermedia
   await activityInstance.addCountries(countriesIds)
 
-  return activityInstance
+  // Traemos toda la informacion incluida su tabla relacionada
+  const data = Activity.findByPk(activityInstance.id, {
+    include: Country
+  })
+  return data
 }
 
 module.exports = { createActivity }

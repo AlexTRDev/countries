@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countryReducer from "../reducers/country.reducer";
+import countriesStore from "../reducers/country.reducer";
+import activityStore from "../reducers/activity.reducer";
 
 const store = configureStore({
   reducer: {
-    countriesStore: countryReducer,
+    countriesStore,
+    activityStore
   }
 })
 

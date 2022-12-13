@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCountries } from "../actions/country.action";
+import { getAllCountries, getCountryById } from "../actions/country.action";
 
 const initialState = {
   countries: [],
@@ -17,29 +17,32 @@ const countryStore = createSlice(
         state.loading = !state.loading
       }
     },
+    // Para acciones asyncronas
     extraReducers: (builder) => {
+      //get-all 
       builder
         .addCase(getAllCountries.pending, (state) => {
-          state.loading = false
+          state.loading = true
         })
         .addCase(getAllCountries.fulfilled, (state, { payload }) => {
           state.loading = false
           state.countries = payload.data
         })
         .addCase(getAllCountries.rejected, (state) => {
-          state.loading = false
+          state.loading = true
         })
-
-      // You can chain calls, or have separate `builder.addCase()` lines each time
-      // .addCase(decrement, (state, action) => {})
-      // You can match a range of action types
-      // .addMatcher(
-      //   isRejectedAction,
-      //   // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
-      //   (state, action) => { }
-      // )
-      // and provide a default case if no other handlers matched
-      // .addDefaultCase((state, action) => {  })
+      // get-byId
+      builder
+        .addCase(getCountryById.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(getCountryById.fulfilled, (state, { payload }) => {
+          state.loading = false;
+          state.country = payload.data;
+        })
+        .addCase(getCountryById.rejected, (state) => {
+          state.loading = true;
+        })
     },
   }
 )

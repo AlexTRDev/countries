@@ -5,7 +5,14 @@ const { Country, Activity } = require("../models")
 const getAll = async () => {
   return await Country.findAll()
 }
-
+// inculuir relacion sin atributos en la tabla intermedia
+// {
+//   include: [{
+//     model: Activity,
+//     attributes: ["name"],
+//     through: { attributes: [] }
+//   }]
+// }
 const getById = async (id) => {
   return await Country.findByPk(id, {
     include: Activity

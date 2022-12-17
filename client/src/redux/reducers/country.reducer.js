@@ -4,6 +4,7 @@ import { getAllCountries, getCountryById } from "../actions/country.action";
 const initialState = {
   countries: [],
   country: {},
+  filtrados: [],
   loading: null,
 }
 
@@ -15,6 +16,9 @@ const countryStore = createSlice(
       // Para acciones syncronas
       setLoading: (state) => {
         state.loading = !state.loading
+      },
+      setFiltrados: (state, { payload }) => {
+        state.filtrados = payload
       }
     },
     // Para acciones asyncronas
@@ -47,5 +51,5 @@ const countryStore = createSlice(
   }
 )
 
-export const { setLoading } = countryStore.actions
+export const { setLoading, setFiltrados } = countryStore.actions
 export default countryStore.reducer;

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Card } from "../../components";
+import { Card, Search } from "../../components";
 import { getAllCountries } from "../../redux/actions";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { countries = [] } = useSelector(({ countryStore }) => countryStore);
+  const { filtrados } = useSelector(({ countryStore }) => countryStore);
 
   useEffect(() => {
     dispatch(getAllCountries());
@@ -14,10 +14,8 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <input type="search" name="search" placeholder="Buscar un país" />
-        <button>Buscar</button>
-      </div>
+      <Search />
+      <div>ordenamiento</div>
       <FilterContainerStyle>
         <fieldset>
           <legend>Filtrar</legend>
@@ -42,9 +40,12 @@ const Home = () => {
       </FilterContainerStyle>
 
       <CardContainerStyle>
-        {countries
-          .map((c) => <Card key={crypto.randomUUID()} {...c} />)
-          .slice(0, 9)}
+        {
+          filtrados.map((c) => (
+            <Card key={crypto.randomUUID()} {...c} />
+          ))
+          // .slice(0, 9)
+        }
       </CardContainerStyle>
 
       <PaginateContainerStyle>

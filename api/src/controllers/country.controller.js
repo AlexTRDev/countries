@@ -38,12 +38,13 @@ const bulkCreateCountries = catchAsync(async (req, res) => {
   let countries = dataAPI.map(country => {
     return {
       name: country?.name?.common || "None",
-      image: country?.flags[0] || "None",
+      image: country?.flags[1] || country?.flags[0] || "none",
       continent: country?.continents?.[0] || "None",
       capital: country?.capital?.[0] || "None",
       sub_region: country?.subregion || "None",
       area: country?.area || "None",
-      population: country?.population || 0
+      population: country?.population || 0,
+      language: country["languages"] ? Object.entries(country.languages)[0][1] : "None",
     }
   })
 

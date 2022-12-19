@@ -19,7 +19,8 @@ const Country = db.define("country", {
   },
   sub_region: DataTypes.STRING,
   area: DataTypes.STRING,
-  population: DataTypes.INTEGER
+  population: DataTypes.INTEGER,
+  language: DataTypes.STRING
 })
 
 module.exports = { Country }

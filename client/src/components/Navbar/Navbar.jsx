@@ -1,14 +1,17 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
+import world from "../../assets/world.png";
 
 const Navbar = () => {
   return (
     <>
       <ContainerNavbarStyled>
-        <div>
-          <img src="logo" alt="..." />
-        </div>
+        <LogoStyled
+          // src="https://static.nationalgeographic.es/files/styles/image_3200/public/940.webp?w=1450&h=816"
+          src={world}
+          alt="..."
+        />
         <NavbarStyle>
           <ListStyle to={"/home"}>Home</ListStyle>
           <ListStyle to={"/create"}>Create Activity</ListStyle>
@@ -20,6 +23,11 @@ const Navbar = () => {
   );
 };
 
+export const LogoStyled = styled.img`
+  height: 48px;
+  cursor: pointer;
+`;
+
 export const ContainerNavbarStyled = styled.div`
   width: 100vw;
   height: 64px;
@@ -27,6 +35,7 @@ export const ContainerNavbarStyled = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background: black;
 `;
 
 export const NavbarStyle = styled.nav`
@@ -36,11 +45,13 @@ export const NavbarStyle = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
+  z-index: 100;
 `;
 
 export const ListStyle = styled(NavLink)`
   padding-left: 10px;
   padding-right: 10px;
+  color: white;
 `;
 
 export default Navbar;

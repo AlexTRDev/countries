@@ -16,6 +16,16 @@ const createActivity = createAsyncThunk(
   }
 )
 
+const getAllActivities = createAsyncThunk(
+  "@GETALL/ACTIVITIES",
+  async () => {
+    const result = await fetch("http://localhost:4000/api/v1/activities")
+    const data = result.json();
+    return data;
+  }
+)
+
 export {
-  createActivity
+  createActivity,
+  getAllActivities
 }

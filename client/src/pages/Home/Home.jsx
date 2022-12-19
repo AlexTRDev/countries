@@ -1,43 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Card, Search } from "../../components";
-import { getAllCountries } from "../../redux/actions";
+import { Card, Order, Search } from "../../components";
+import { Continent } from "../../components/Filters";
+import { getAllActivities } from "../../redux/actions/activity.action";
+import { setActivity } from "../../redux/reducers/country.reducer";
+
+// North America, Europe, Oceania, Africa, Antarctica, Asia, South America
 
 const Home = () => {
-  const dispatch = useDispatch();
   const { filtrados } = useSelector(({ countryStore }) => countryStore);
+  const [sel, setSel] = useState("");
+  const { activities } = useSelector(({ activityStore }) => activityStore);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCountries());
+    dispatch(getAllActivities());
   }, []);
+
+  const handleActivity = (e) => {
+    e.preventDefault();
+    if (e.target.value !== "") {
+      setSel(e.target.value);
+      dispatch(setActivity(e.target.value));
+    }
+  };
 
   return (
     <>
-      <Search />
-      <div>ordenamiento</div>
       <FilterContainerStyle>
-        <fieldset>
-          <legend>Filtrar</legend>
-          <div>
-            <input
-              type="radio"
-              id="contactChoice1"
-              name="contact"
-              value="email"
-              defaultChecked
-            />
-            <label htmlFor="contactChoice1">Continente</label>
-            <input
-              type="radio"
-              id="contactChoice2"
-              name="contact"
-              value="phone"
-            />
-            <label htmlFor="contactChoice2">Poblacion</label>
-          </div>
-        </fieldset>
+        <Continent />
+        <select name="activities" id="activities" onChange={handleActivity}>
+          <option value="">--Actividades--</option>
+
+          {activities.map(({ name }) => {
+            if (name === sel) {
+              return (
+                <option key={crypto.randomUUID()} selected>
+                  {name}
+                </option>
+              );
+            } else {
+              return <option key={crypto.randomUUID()}>{name}</option>;
+            }
+          })}
+        </select>
       </FilterContainerStyle>
+      <Order />
+      <Search />
 
       <CardContainerStyle>
         {

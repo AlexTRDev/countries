@@ -12,4 +12,10 @@ const createActivity = async ({ countriesIds, ...activity }) => {
   })
 }
 
-module.exports = { createActivity }
+const getAllActivities = async () => {
+  return await Activity.findAll({
+    include: Country
+  })
+}
+
+module.exports = { createActivity, getAllActivities }

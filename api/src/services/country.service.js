@@ -3,7 +3,13 @@ const { Country, Activity } = require("../models")
 
 //logica
 const getAll = async () => {
-  return await Country.findAll()
+  return await Country.findAll({
+    include: [{
+      model: Activity,
+      attributes: ["name"],
+      through: { attributes: [] }
+    }]
+  })
 }
 // inculuir relacion sin atributos en la tabla intermedia
 // {

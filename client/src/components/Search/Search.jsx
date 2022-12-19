@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getAllCountries } from "../../redux/actions/country.action";
 import { setFiltrados } from "../../redux/reducers/country.reducer";
 
 const Search = () => {
@@ -9,16 +10,17 @@ const Search = () => {
 
   const { countries } = useSelector(({ countryStore }) => countryStore);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
-    let filtrados = [];
     if (search === "") {
-      filtrados = countries;
+      dispatch(getAllCountries());
     } else {
-      filtrados = countries.filter((c) =>
+      const filtrados = countries.filter((c) =>
         c.name.toUpperCase().includes(search.toUpperCase())
       );
+      dispatch(setFiltrados(filtrados));
     }
-    dispatch(setFiltrados(filtrados));
   }, [search]);
 
   const handleSearch = (e) => {

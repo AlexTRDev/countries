@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import world from "../../assets/world.png";
+import { getAllCountries } from "../../redux/actions";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCountries());
+  }, []);
+
   return (
     <>
       <ContainerNavbarStyled>
